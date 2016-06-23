@@ -23,12 +23,16 @@ public class Render {
 		GL11.glDisableClientState(GL11.GL_COLOR_ARRAY);
 	}
 	
+	public void drawPlane(Plane p) {
+		drawMesh(p.getMesh());
+	}
+	
 	public void clear(int r, int g, int b) {
 		GL11.glClearColor(rgbConvert(r), rgbConvert(g), rgbConvert(b), 1);
 		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
 	}
 	
-	private static float rgbConvert(int rgb) {
+	public static float rgbConvert(int rgb) {
 		return (float)rgb/255.0f;
 	}
 	
