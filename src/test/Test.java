@@ -21,7 +21,7 @@ public class Test extends CoreGame {
 		plane = new TexturedPlane("/textures/NewLogo512.png", 100, 100, 128, 128);
 	}
 
-	@Override
+	@Override 
 	public void render(Render r) {
 		r.clear(0, 128, 128);
 		
