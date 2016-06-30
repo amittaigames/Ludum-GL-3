@@ -1,4 +1,4 @@
-package com.amittaigames.lgl3;
+package com.amittaigames.lgl3.render;
 
 import java.nio.FloatBuffer;
 
@@ -6,6 +6,8 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL15;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureLoader;
+
+import com.amittaigames.lgl3.Buffers;
 
 public class TexturedMesh extends Mesh {
 

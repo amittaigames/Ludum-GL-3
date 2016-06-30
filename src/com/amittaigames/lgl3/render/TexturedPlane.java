@@ -1,14 +1,14 @@
-package com.amittaigames.lgl3;
+package com.amittaigames.lgl3.render;
 
-public class Plane {
+public class TexturedPlane {
 
-	private Mesh mesh;
+	private TexturedMesh mesh;
 	private float x;
 	private float y;
 	private float width;
 	private float height;
 	
-	public Plane(float x, float y, float width, float height) {
+	public TexturedPlane(String fName, float x, float y, float width, float height) {
 		this.x = x;
 		this.y = y;
 		this.width = width;
@@ -33,7 +33,7 @@ public class Plane {
 			0, 3, 2
 		};
 		
-		this.mesh = new Mesh(pos, color, index);
+		this.mesh = new TexturedMesh(fName, pos, color, index);
 	}
 	
 	public void translate(float x, float y) {
@@ -65,7 +65,7 @@ public class Plane {
 		mesh.updateColor(color);
 	}
 	
-	public Mesh getMesh() {
+	public TexturedMesh getMesh() {
 		return mesh;
 	}
 	
@@ -76,5 +76,5 @@ public class Plane {
 	public float getY() {
 		return y;
 	}
-	
+
 }

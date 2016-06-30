@@ -1,5 +1,7 @@
 package com.amittaigames.lgl3;
 
+import com.amittaigames.lgl3.render.Render;
+
 public abstract class CoreGame {
 
 	public CoreGame() {

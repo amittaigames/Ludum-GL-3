@@ -1,4 +1,4 @@
-package com.amittaigames.lgl3;
+package com.amittaigames.lgl3.render;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL15;
@@ -26,6 +26,10 @@ public class Render {
 		GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);
 		GL11.glDisableClientState(GL11.GL_VERTEX_ARRAY);
 		GL11.glDisableClientState(GL11.GL_COLOR_ARRAY);
+	}
+	
+	public void drawBlur(int power) {
+		
 	}
 	
 	public void drawPlane(Plane p) {

@@ -1,4 +1,4 @@
-package com.amittaigames.lgl3;
+package com.amittaigames.lgl3.render;
 
 import java.awt.Font;
 import java.awt.GraphicsEnvironment;

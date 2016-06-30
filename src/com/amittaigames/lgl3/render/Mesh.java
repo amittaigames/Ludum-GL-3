@@ -1,9 +1,11 @@
-package com.amittaigames.lgl3;
+package com.amittaigames.lgl3.render;
 
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
 import org.lwjgl.opengl.GL15;
+
+import com.amittaigames.lgl3.Buffers;
 
 public class Mesh {
 
