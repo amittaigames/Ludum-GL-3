@@ -1,6 +1,7 @@
 package test;
 
 import com.amittaigames.lgl3.CoreGame;
+import com.amittaigames.lgl3.Debug;
 import com.amittaigames.lgl3.Keys;
 import com.amittaigames.lgl3.Render;
 import com.amittaigames.lgl3.Sound;
@@ -19,15 +20,18 @@ public class Test extends CoreGame {
 	
 	@Override
 	public void init() {
+		Debug.printInfo();
+		
 		plane = new TexturedPlane("/textures/NewLogo512.png", 100, 100, 128, 128);
 		
 		Sound.init();
-		Sound.loadWAVBuffer("/audio/sfx.wav", false);
+		Sound.loadWAVBuffer("/audio/TestMusic.wav", true);
+		Sound.playSound("TestMusic", 25);
 	}
 
 	@Override 
 	public void render(Render r) {
-		r.clear(0, 0, 0);
+		r.clear(0, 128, 128);
 		
 		r.drawTexture(plane);
 	}

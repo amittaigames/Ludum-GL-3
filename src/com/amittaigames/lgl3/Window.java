@@ -64,6 +64,7 @@ public class Window {
 		int index;
 		ByteBuffer buf = ByteBuffer.allocateDirect(WIDTH * HEIGHT * 3);
 		
+		GL11.glReadBuffer(GL11.GL_FRONT);
 		GL11.glReadPixels(0, 0, WIDTH, HEIGHT, GL11.GL_RGB, GL11.GL_UNSIGNED_BYTE, buf);
 		
 		BufferedImage img = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);

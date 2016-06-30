@@ -8,15 +8,17 @@ be physics support, and other elements that some people might not want to write 
 
 ### Dependencies
 
-* LWJGL
-* LWJGL Util
-* Slick Util
+* LWJGL 		(lwjgl.jar)
+* LWJGL Util	(lwjgl_util.jar)
+* LWJGL Test	(lwjgl_test.jar)
+* Slick Util	(slick_util.jar)
 
 LWJGL natives are included with the game engine, will be extracted upon first run, and loaded every time.
+The version of LWJGL that is used is **2.9.3**
 
 ### Version History
 
-Current Version: **0.9**
+Current Version: **0.10**
 
 |Version|Description|
 |:------|:----------|
@@ -29,3 +31,4 @@ Current Version: **0.9**
 |0.7|Sound playback (WAV support only as of now)|
 |0.8|README added|
 |0.9|Screenshots added|
+|0.10|Fixed some bugs (audio natives, screenshots), and added "debugging"|

@@ -2,7 +2,6 @@ package com.amittaigames.lgl3;
 
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +26,7 @@ public class Sound {
 	
 	private static class SoundLink {
 		private SoundData data;
+		@SuppressWarnings("unused")
 		private int source;
 		
 		public SoundLink(SoundData data, int source) {
@@ -131,7 +131,7 @@ public class Sound {
 	
 	public static void loadWAVBuffer(String fName, boolean loop) {
 		int vAudio = AL10.alGenBuffers();
-		WaveData wavFile = WaveData.create(Sound.class.getResourceAsStream(fName));
+		WaveData wavFile = WaveData.create(new BufferedInputStream(Sound.class.getResourceAsStream(fName)));
 		AL10.alBufferData(vAudio, wavFile.format, wavFile.data, wavFile.samplerate);
 		wavFile.dispose();
 		

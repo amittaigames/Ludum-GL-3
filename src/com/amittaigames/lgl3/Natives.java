@@ -7,12 +7,12 @@ import java.io.InputStream;
 
 public class Natives {
 
-	// Don't use this class in your code!
+		// Don't use this class in your code!
 		// All of this is automatically used by Ludum GL
 		
 		public static void load() {
 			try {
-				File ludumgl = new File(SystemData.HOME + "/.ludumgl/");
+				File ludumgl = new File(Debug.getUserHome() + "/.ludumgl/");
 				if (!ludumgl.exists()) {
 					ludumgl.mkdir();
 					load();
@@ -21,8 +21,8 @@ public class Natives {
 				if (!natives.exists()) {
 					System.out.println("[Ludum GL] Copying natives...");
 					natives.mkdir();
-					loadNatives();
 				}
+				loadNatives();
 				System.out.println("[Ludum GL] Loading natives...");
 				System.setProperty("org.lwjgl.librarypath", natives.getAbsolutePath());
 			} catch (Exception e) {
@@ -31,20 +31,27 @@ public class Natives {
 		}
 		
 		public static void loadNatives() throws Exception {
-			if (SystemData.OS.contains("Mac")) {
+			if (Debug.getOSName().contains("Mac")) {
 				loadNative("liblwjgl.dylib");
+				loadNative("openal.dylib");
 			}
-			if (SystemData.OS.contains("Windows")) {
-				if (SystemData.ARCH.equals("x86"))
+			if (Debug.getOSName().contains("Windows")) {
+				if (Debug.getArchitecture().equals("x86")) {
 					loadNative("lwjgl.dll");
-				else
+					loadNative("OpenAL32.dll");
+				} else {
 					loadNative("lwjgl64.dll");
+					loadNative("OpenAL64.dll");
+				}
 			}
-			if (SystemData.OS.contains("Linux")) {
-				if (SystemData.ARCH.equals("x86"))
+			if (Debug.getOSName().contains("Linux")) {
+				if (Debug.getArchitecture().equals("x86")) {
 					loadNative("liblwjgl.so");
-				else
+					loadNative("libopenal.so");
+				} else {
 					loadNative("liblwjgl64.so");
+					loadNative("libopenal64.so");
+				}
 			}
 		}
 		
@@ -52,7 +59,7 @@ public class Natives {
 			InputStream in = Natives.class.getResourceAsStream("/natives/" + name);
 			byte[] buf = new byte[1024];
 			int read = -1;
-			File nat = new File(SystemData.HOME + "/.ludumgl/natives/" + name);
+			File nat = new File(Debug.getUserHome() + "/.ludumgl/natives/" + name);
 			FileOutputStream fos = new FileOutputStream(nat);
 			
 			while ((read = in.read(buf)) != -1) {
