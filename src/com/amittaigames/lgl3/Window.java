@@ -57,6 +57,9 @@ public class Window {
 			Display.sync(60);
 		}
 		
+		if (Sound.isInitialized())
+			Sound.destroy();
+		
 		Display.destroy();
 		System.exit(0);
 	}

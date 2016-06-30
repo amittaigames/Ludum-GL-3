@@ -68,5 +68,13 @@ public class TexturedPlane {
 	public TexturedMesh getMesh() {
 		return mesh;
 	}
+	
+	public float getX() {
+		return x;
+	}
+	
+	public float getY() {
+		return y;
+	}
 
 }

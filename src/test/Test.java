@@ -3,6 +3,7 @@ package test;
 import com.amittaigames.lgl3.CoreGame;
 import com.amittaigames.lgl3.Keys;
 import com.amittaigames.lgl3.Render;
+import com.amittaigames.lgl3.Sound;
 import com.amittaigames.lgl3.TexturedPlane;
 import com.amittaigames.lgl3.Window;
 
@@ -19,6 +20,12 @@ public class Test extends CoreGame {
 	@Override
 	public void init() {
 		plane = new TexturedPlane("/textures/NewLogo512.png", 100, 100, 128, 128);
+		
+		Sound.init();
+		Sound.loadWAVBuffer("/audio/TestMusic.wav", true);
+		Sound.loadWAVBuffer("/audio/sfx.wav", false);
+		
+		Sound.playSound("TestMusic", 25);
 	}
 
 	@Override 
@@ -41,6 +48,10 @@ public class Test extends CoreGame {
 		}
 		if (Keys.isPressed(Keys.KEY_S)) {
 			plane.translate(0, speed);
+		}
+		
+		if (Keys.isPressed(Keys.KEY_Q)) {
+			Sound.playSound("sfx");
 		}
 	}
 

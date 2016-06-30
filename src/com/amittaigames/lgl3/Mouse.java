@@ -1,5 +1,7 @@
 package com.amittaigames.lgl3;
 
+import org.lwjgl.opengl.Display;
+
 public class Mouse {
 	
 	public static final int MOUSE_LEFT			= 0x00;
@@ -10,7 +12,7 @@ public class Mouse {
 	}
 	
 	public static int getY() {
-		return org.lwjgl.input.Mouse.getY();
+		return Display.getHeight() - org.lwjgl.input.Mouse.getY();
 	}
 	
 	public static boolean isClicked(int button) {
