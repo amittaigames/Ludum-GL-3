@@ -16,7 +16,7 @@ LWJGL natives are included with the game engine, will be extracted upon first ru
 
 ### Version History
 
-Current Version: **0.8**
+Current Version: **0.9**
 
 |Version|Description|
 |:------|:----------|
@@ -28,3 +28,4 @@ Current Version: **0.8**
 |0.6|Natives self load|
 |0.7|Sound playback (WAV support only as of now)|
 |0.8|README added|
+|0.9|Screenshots added|

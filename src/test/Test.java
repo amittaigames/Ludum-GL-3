@@ -22,15 +22,12 @@ public class Test extends CoreGame {
 		plane = new TexturedPlane("/textures/NewLogo512.png", 100, 100, 128, 128);
 		
 		Sound.init();
-		Sound.loadWAVBuffer("/audio/TestMusic.wav", true);
 		Sound.loadWAVBuffer("/audio/sfx.wav", false);
-		
-		Sound.playSound("TestMusic", 25);
 	}
 
 	@Override 
 	public void render(Render r) {
-		r.clear(0, 128, 128);
+		r.clear(0, 0, 0);
 		
 		r.drawTexture(plane);
 	}
@@ -48,10 +45,6 @@ public class Test extends CoreGame {
 		}
 		if (Keys.isPressed(Keys.KEY_S)) {
 			plane.translate(0, speed);
-		}
-		
-		if (Keys.isPressed(Keys.KEY_Q)) {
-			Sound.playSound("sfx");
 		}
 	}
 

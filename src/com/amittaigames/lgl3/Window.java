@@ -1,7 +1,14 @@
 package com.amittaigames.lgl3;
 
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.imageio.ImageIO;
 
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
@@ -9,6 +16,9 @@ import org.lwjgl.opengl.GL11;
 
 public class Window {
 
+	public static int WIDTH;
+	public static int HEIGHT;
+	
 	private static Render r = new Render();
 	private static List<String> enables = new ArrayList<String>();
 	
@@ -37,12 +47,42 @@ public class Window {
 			}
 		}
 		
+		WIDTH = width;
+		HEIGHT = height;
+		
 		start(game);
 	}
 	
 	public static void enable(String... args) {
 		for (String s : args) {
 			enables.add(enables.size(), s);
+		}
+	}
+	
+	public static void takeScreenshot(String out) {
+		int[] pixels = new int[WIDTH * HEIGHT];
+		int index;
+		ByteBuffer buf = ByteBuffer.allocateDirect(WIDTH * HEIGHT * 3);
+		
+		GL11.glReadPixels(0, 0, WIDTH, HEIGHT, GL11.GL_RGB, GL11.GL_UNSIGNED_BYTE, buf);
+		
+		BufferedImage img = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
+		for (int i = 0; i < pixels.length; i++) {
+			index = i * 3;
+			pixels[i] = (buf.get(index) << 16) + (buf.get(index + 1) << 8) + (buf.get(index + 2) << 0);
+		}
+		img.setRGB(0, 0, WIDTH, HEIGHT, pixels, 0, WIDTH);
+		
+		AffineTransform at = AffineTransform.getScaleInstance(1, -1);
+		at.translate(0, -img.getHeight());
+		
+		AffineTransformOp op = new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
+		img = op.filter(img, null);
+		
+		try {
+			ImageIO.write(img, "PNG", new File(out));
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 	
