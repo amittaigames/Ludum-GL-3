@@ -3,8 +3,7 @@ package test;
 import com.amittaigames.lgl3.CoreGame;
 import com.amittaigames.lgl3.Window;
 import com.amittaigames.lgl3.input.Keys;
-import com.amittaigames.lgl3.math.Maths;
-import com.amittaigames.lgl3.math.Matrix;
+import com.amittaigames.lgl3.math.Point;
 import com.amittaigames.lgl3.render.Render;
 import com.amittaigames.lgl3.render.TexturedPlane;
 
@@ -21,20 +20,6 @@ public class Test extends CoreGame {
 	@Override
 	public void init() {
 		plane = new TexturedPlane("/textures/NewLogo512.png", 100, 100, 128, 128);
-		
-		Matrix a = new Matrix(3, 2, new float[] {
-			1, 2, 3,
-			4, 5, 6
-		});
-		
-		Matrix b = new Matrix(2, 3, new float[] {
-			7, 8,
-			9, 10,
-			11, 12
-		});
-		
-		Matrix c = Matrix.multiply(a, b);
-		System.out.println(c.toString());
 	}
 
 	@Override 
@@ -42,8 +27,6 @@ public class Test extends CoreGame {
 		r.clear(0, 128, 128);
 		
 		r.drawTexture(plane);
-		
-		r.drawBlur(5);
 	}
 
 	@Override

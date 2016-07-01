@@ -18,7 +18,7 @@ The version of LWJGL that is used is **2.9.3**
 
 ### Version History
 
-Current Version: **0.11**
+Current Version: **0.12**
 
 |Version|Description|
 |:------|:----------|
@@ -33,3 +33,4 @@ Current Version: **0.11**
 |0.9|Screenshots added|
 |0.10|Fixed some bugs (audio natives, screenshots), and added "debugging"|
 |0.11|Added maths and matrices|
+|0.12|Added point math|

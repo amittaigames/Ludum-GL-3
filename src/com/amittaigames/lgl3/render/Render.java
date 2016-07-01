@@ -1,10 +1,18 @@
 package com.amittaigames.lgl3.render;
 
+import java.nio.ByteBuffer;
+import java.nio.FloatBuffer;
+import java.nio.IntBuffer;
+
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL15;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.opengl.TextureImpl;
+
+import com.amittaigames.lgl3.Buffers;
+import com.amittaigames.lgl3.Window;
+import com.amittaigames.lgl3.math.Matrix;
 
 public class Render {
 	
@@ -26,10 +34,6 @@ public class Render {
 		GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);
 		GL11.glDisableClientState(GL11.GL_VERTEX_ARRAY);
 		GL11.glDisableClientState(GL11.GL_COLOR_ARRAY);
-	}
-	
-	public void drawBlur(int power) {
-		
 	}
 	
 	public void drawPlane(Plane p) {

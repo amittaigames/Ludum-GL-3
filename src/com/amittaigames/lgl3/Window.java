@@ -107,4 +107,12 @@ public class Window {
 		System.exit(0);
 	}
 	
+	public static int getWidth() {
+		return Display.getDisplayMode().getWidth();
+	}
+	
+	public static int getHeight() {
+		return Display.getDisplayMode().getHeight();
+	}
+	
 }
