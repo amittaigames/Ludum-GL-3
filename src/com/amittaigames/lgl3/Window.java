@@ -10,9 +10,11 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 
+import org.lwjgl.Sys;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
+import org.newdawn.slick.opengl.ImageIOImageData;
 
 import com.amittaigames.lgl3.render.Render;
 
@@ -20,6 +22,11 @@ public class Window {
 
 	public static int WIDTH;
 	public static int HEIGHT;
+	private static long lastFrame;
+	
+	private static long lastFPS;
+	private static int LAST = 0;
+	private static int FPS;
 	
 	private static Render r = new Render();
 	private static List<String> enables = new ArrayList<String>();
@@ -29,6 +36,7 @@ public class Window {
 			Display.setTitle(title);
 			Display.setDisplayMode(new DisplayMode(width, height));
 			Display.setVSyncEnabled(true);
+			setIcon("/lgl/icon");
 			Display.create();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -90,6 +98,9 @@ public class Window {
 	}
 	
 	private static void start(CoreGame game) {
+		getDelta();
+		lastFPS = getTime();
+		
 		game.init();
 		
 		while (!Display.isCloseRequested()) {
@@ -105,6 +116,64 @@ public class Window {
 		
 		Display.destroy();
 		System.exit(0);
+	}
+	
+	
+	private static int getDelta() {
+		long time = getTime();
+		int delta = (int) (time - lastFrame);
+		lastFrame = time;
+		return delta;
+	}
+	
+	
+	private static long getTime() {
+		return (Sys.getTime() * 1000) / Sys.getTimerResolution();
+	}
+	
+	public static int getCurrentFPS() {
+		int ret = LAST;
+		if (getTime() - lastFPS > 1000) {
+			ret = FPS;
+			LAST = FPS;
+			FPS = 0;
+			lastFPS += 1000;
+		}
+		FPS++;
+		return ret;
+	}
+	
+	public static void setTitle(String title) {
+		Display.setTitle(title);
+	}
+	
+	public static void setIcon(String fName) {
+		StringBuilder a = new StringBuilder().append(fName);
+		StringBuilder b = new StringBuilder().append(fName);
+		
+		if (Debug.getOSName().contains("Windows")) {
+			a.append("16.png");
+			b.append("32.png");
+		}
+		
+		if (Debug.getOSName().contains("Mac")) {
+			a.append("128.png");
+			b.append("128.png");
+		}
+		
+		if (Debug.getOSName().contains("Linux")) {
+			a.append("32.png");
+			b.append("32.png");
+		}
+		
+		try {
+			Display.setIcon(new ByteBuffer[] {
+					new ImageIOImageData().imageToByteBuffer(ImageIO.read(Window.class.getResourceAsStream(a.toString())), false, false, null),
+					new ImageIOImageData().imageToByteBuffer(ImageIO.read(Window.class.getResourceAsStream(b.toString())), false, false, null)
+			});
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public static int getWidth() {

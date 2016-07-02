@@ -8,6 +8,11 @@ public class TexturedPlane {
 	private float width;
 	private float height;
 	
+	private float rx;
+	private float ry;
+	private float rz;
+	private float angle;
+	
 	public TexturedPlane(String fName, float x, float y, float width, float height) {
 		this.x = x;
 		this.y = y;
@@ -34,6 +39,13 @@ public class TexturedPlane {
 		};
 		
 		this.mesh = new TexturedMesh(fName, pos, color, index);
+	}
+	
+	public void rotate(float rx, float ry, float rz, float angle) {
+		this.angle += angle;
+		this.rx = rx;
+		this.ry = ry;
+		this.rz = rz;
 	}
 	
 	public void translate(float x, float y) {
@@ -75,6 +87,30 @@ public class TexturedPlane {
 	
 	public float getY() {
 		return y;
+	}
+	
+	public float getWidth() {
+		return width;
+	}
+	
+	public float getHeight() {
+		return height;
+	}
+	
+	public float getRotateX() {
+		return rx;
+	}
+	
+	public float getRotateY() {
+		return ry;
+	}
+	
+	public float getRotateZ() {
+		return rz;
+	}
+	
+	public float getAngle() {
+		return angle;
 	}
 
 }

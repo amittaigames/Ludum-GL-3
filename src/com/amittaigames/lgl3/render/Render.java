@@ -1,18 +1,12 @@
 package com.amittaigames.lgl3.render;
 
-import java.nio.ByteBuffer;
-import java.nio.FloatBuffer;
-import java.nio.IntBuffer;
-
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL15;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.opengl.TextureImpl;
 
-import com.amittaigames.lgl3.Buffers;
-import com.amittaigames.lgl3.Window;
-import com.amittaigames.lgl3.math.Matrix;
+import com.amittaigames.lgl3.Debug;
 
 public class Render {
 	
@@ -54,9 +48,23 @@ public class Render {
 		
 		GL11.glBindTexture(GL11.GL_TEXTURE_2D, t.getMesh().getTextureID());
 		
+		GL11.glPushMatrix();
+		GL11.glTranslatef(t.getX() + (t.getWidth() / 2), t.getY() + (t.getHeight() / 2), 0);
+		GL11.glRotatef(t.getAngle(), t.getRotateX(), t.getRotateY(), t.getRotateZ());
+		GL11.glTranslatef(-(t.getX() + (t.getWidth() / 2)), -(t.getY() + (t.getHeight() / 2)), 0);
+		
 		drawMesh(t.getMesh());
 		
+		GL11.glPopMatrix();
+		
 		GL11.glDisableClientState(GL11.GL_TEXTURE_COORD_ARRAY);
+	}
+	
+	public void drawDebugInfo() {
+		drawText("Operating System: " + Debug.getOSName() + " (" + Debug.getOSVersion() + ")", 5, 5, Color.white);
+		drawText("JRE Architecture: " + Debug.getArchitecture(), 5, 5 + (font.getHeight()), Color.white);
+		drawText("Memory: " + Debug.getFreeMemory() + "/" + Debug.getTotalMemory() + " MB", 5, 5 + (font.getHeight() * 2), Color.white);
+		drawText("OpenGL Version: " + Debug.getOpenGLVersion() + " (" + Debug.getOpenGLVendor() + ")", 5, 5 + (font.getHeight() * 3), Color.white);
 	}
 	
 	public void clear(int r, int g, int b) {

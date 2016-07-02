@@ -36,11 +36,15 @@ public class Debug {
 		return GL11.glGetString(GL11.GL_VENDOR);
 	}
 	
+	public static String getInfo() {
+		return "Operating System: " + getOSName() + " (" + getOSVersion() + ")\n" +
+			   "JRE Architecture: " + getArchitecture() + "\n" +
+			   "Memory: " + getFreeMemory() + "/" + getTotalMemory() + " MB\n" +
+			   "OpenGL Version: " + getOpenGLVersion() + " (" + getOpenGLVendor() + ")";
+	}
+	
 	public static void printInfo() {
-		System.out.println("Operating System: " + getOSName() + " (" + getOSVersion() + ")");
-		System.out.println("JRE Architecture: " + getArchitecture());
-		System.out.println("Memory: " + getFreeMemory() + "/" + getTotalMemory() + " MB");
-		System.out.println("OpenGL Version: " + getOpenGLVersion() + " (" + getOpenGLVendor() + ")");
+		System.out.println(getInfo());
 	}
 	
 }
