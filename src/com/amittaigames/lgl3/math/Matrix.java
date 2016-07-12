@@ -89,6 +89,22 @@ public class Matrix {
 		return c;
 	}
 	
+	public static Matrix multiplyFilter(Matrix filter, Matrix src) {
+		if (filter.width != src.width || filter.height != src.height) {
+			return null;
+		}
+		
+		float[] filterData = filter.getDataSingle();
+		float[] srcData = src.getDataSingle();
+		float[] destData = new float[filterData.length];
+		
+		for (int i = 0; i < filterData.length; i++) {
+			destData[i] = filterData[i] * srcData[i];
+		}
+		
+		return new Matrix(filter.width, filter.height, destData);
+	}
+	
 	public float get(int x, int y) {
 		return data[y][x];
 	}
@@ -120,6 +136,63 @@ public class Matrix {
 			}
 		}
 	}
+	
+	public void fill(float data) {
+		for (int x = 0; x < width; x++) {
+			for (int y = 0; y < height; y++) {
+				set(x, y, data);
+			}
+		}
+	}
+	
+	public void populateFilter(float center) {
+		int centerX = (width / 2);
+		int centerY = (height / 2);
+		set(centerX, centerY, center);
+		
+		for (int i = 1; i < (width / 2) + 1; i++) {
+			set(centerX - i, centerY, get(centerX - i + 1, centerY) / 2);
+			set(centerX + i, centerY, get(centerX + i - 1, centerY) / 2);
+			set(centerX, centerY - i, get(centerX, centerY - i + 1) / 2);
+			set(centerX, centerY + i, get(centerX, centerY + i - 1) / 2);
+		}
+		
+		for (int i = 0; i < height; i++) {
+			if (i != (height / 2)) {
+				for (int j = 1; j < (height / 2) + 1; j++) {
+					set(centerX - j, i, get(centerX - j + 1, i) / 2);
+					set(centerX + j, i, get(centerX + j - 1, i) / 2);
+				}
+			}
+		}
+	}
+	
+	public void populateFilterReverse(float outer, int power) {
+		float center = outer;
+		for (int i = 0; i < (width / 2); i++) {
+			center /= power;
+		}
+		
+		int centerX = (width / 2);
+		int centerY = (height / 2);
+		set(centerX, centerY, center);
+		
+		for (int i = 1; i < (width / 2) + 1; i++) {
+			set(centerX - i, centerY, get(centerX - i + 1, centerY) * power);
+			set(centerX + i, centerY, get(centerX + i - 1, centerY) * power);
+			set(centerX, centerY - i, get(centerX, centerY - i + 1) * power);
+			set(centerX, centerY + i, get(centerX, centerY + i - 1) * power);
+		}
+		
+		for (int i = 0; i < height; i++) {
+			if (i != (height / 2)) {
+				for (int j = 1; j < (height / 2) + 1; j++) {
+					set(centerX - j, i, get(centerX - j + 1, i) * power);
+					set(centerX + j, i, get(centerX + j - 1, i) * power);
+				}
+			}
+		}
+	}
 
 	@Override
 	public String toString() {
@@ -146,6 +219,16 @@ public class Matrix {
 	}
 
 	public float[][] getData() {
+		return data;
+	}
+	
+	public float[] getDataSingle() {
+		float[] data = new float[width * height];
+		for (int y = 0; y < height; y++) {
+			for (int x = 0; x < width; x++) {
+				data[y * width + x] = get(x, y);
+			}
+		}
 		return data;
 	}
 

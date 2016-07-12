@@ -1,63 +1,60 @@
 package test;
 
-import java.awt.Font;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.newdawn.slick.Color;
-
 import com.amittaigames.lgl3.CoreGame;
 import com.amittaigames.lgl3.Window;
+import com.amittaigames.lgl3.input.Keys;
 import com.amittaigames.lgl3.input.Mouse;
-import com.amittaigames.lgl3.render.FontHandler;
+import com.amittaigames.lgl3.render.PointLight;
 import com.amittaigames.lgl3.render.Render;
 import com.amittaigames.lgl3.render.TexturedPlane;
 
 public class Test extends CoreGame {
-
-	private List<TexturedPlane> planes = new ArrayList<TexturedPlane>();
-	private boolean clicked = false;
+	
+	private TexturedPlane plane;
 	
 	public static void main(String[] args) {
 		Window.enable("textures", "alpha");
-		Window.init("Performance Test", 800, 600, new Test());
+		Window.init("Lighting Test", 800, 600, new Test());
 	}
 	
 	@Override
 	public void init() {
-		FontHandler.registerFont(new Font("Arial", Font.PLAIN, 14), true);
+		plane = new TexturedPlane("/textures/NewLogo512.png", 100, 100, 128, 128);
+		new PointLight(100, 100, 5, 2);
 	}
 
 	@Override 
 	public void render(Render r) {
-		r.clear(255, 128, 128);
+		r.clear(0, 128, 128);
 		
-		for (TexturedPlane plane : planes) {
-			r.drawTexture(plane);
-		}
+		r.drawTexture(plane);
 		
-		FontHandler.setFont("Arial 14");
-		r.drawDebugInfo();
-		
-		r.drawText("Object Count: " + planes.size(), 15, Window.getHeight() - 30, Color.white);
+		r.drawLighting(Window.WIDTH / 20, 12, 21, 48, 228);
 	}
 
 	@Override
 	public void update() {
-		Window.setTitle("Performance Test - FPS: " + Window.getCurrentFPS());
+		Window.setTitle("Lighting Test - FPS: " + Window.getCurrentFPS());
 		
-		if (Mouse.isClicked(Mouse.MOUSE_LEFT)) {
-			if (!clicked) {
-				planes.add(new TexturedPlane("/lgl/icon128.png", Mouse.getX() - 32, Mouse.getY() - 32, 64, 64));
-				clicked = true;
-			}
-		} else {
-			clicked = false;
+		if (Keys.isPressed(Keys.KEY_D)) {
+			plane.translate(5, 0);
+		}
+		if (Keys.isPressed(Keys.KEY_A)) {
+			plane.translate(-5, 0);
+		}
+		if (Keys.isPressed(Keys.KEY_S)) {
+			plane.translate(0, 5);
+		}
+		if (Keys.isPressed(Keys.KEY_W)) {
+			plane.translate(0, -5);
 		}
 		
-		for (TexturedPlane plane : planes) {
-			plane.rotate(0, 0, 1, 1.5f);
+		if (Keys.isPressed(Keys.KEY_ESCAPE)) {
+			System.exit(0);
 		}
+		
+		PointLight.list.get(0).setX(Mouse.getX());
+		PointLight.list.get(0).setY(Mouse.getY());
 	}
 
 }

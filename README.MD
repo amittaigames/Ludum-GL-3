@@ -18,7 +18,7 @@ The version of LWJGL that is used is **2.9.3**
 
 ### Version History
 
-Current Version: **0.13**
+Current Version: **0.14**
 
 |Version|Description|
 |:------|:----------|
@@ -35,3 +35,4 @@ Current Version: **0.13**
 |0.11|Added maths and matrices|
 |0.12|Added point math|
 |0.13|Added textured mesh rotation and more window functions|
+|0.14|Added a lighting system that is experimental|
